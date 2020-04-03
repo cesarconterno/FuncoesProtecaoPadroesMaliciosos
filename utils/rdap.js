@@ -11,8 +11,7 @@ module.exports = {
 
         client.get(path, function(err, request, response, obj) {
             assert.ifError(err);
-            // res.json(obj);
-            res.end(obj.handle); // retorna a rede do ip
+            res.json(obj.nicbr_autnum); // retorna o AS number
         });
 
     } 
