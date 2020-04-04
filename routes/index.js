@@ -2,10 +2,10 @@ module.exports = app => {
  
     app.get('/', (req, res) => {
 
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/html');
-        res.end('<h1>API funcionando</h1>');
-
+        // res.statusCode = 200;
+        // res.setHeader('Content-Type', 'text/html');
+        // res.end('<h1>API funcionando</h1>');
+        app.utils.searchIP.forListIP(req, res); //retornar o as number
     });
     
 };
