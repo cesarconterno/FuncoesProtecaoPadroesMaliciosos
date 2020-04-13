@@ -16,6 +16,7 @@
     "express-validator": "^5.3.1",
     "mysql": "^2.18.1",
     "nedb": "^1.8.0",
-    "restify-clients": "^2.6.9"
+    "restify-clients": "^2.6.9",
+    "simple-ssh": "^1.0.0"
   }
 }
