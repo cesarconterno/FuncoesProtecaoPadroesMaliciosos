@@ -23,7 +23,7 @@ module.exports = app => {
 
         // app.utils.rdap.send(req, res, '/ip/200.20.6.7'); // envia um ip e retorna o seu AS
         
-        app.utils.ssh.traceroute(req, res, 'echo "ooo"'); //retorna o echo solicitado
+        app.utils.ssh.command(req, res, 'uname -o'); //retorna o echo solicitado
 
     });
 

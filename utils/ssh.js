@@ -1,15 +1,15 @@
 module.exports = {
 
-    traceroute: (req, res, command = 'echo "ok"')=> {
+    command: (req, res, line, hostMachine = '192.168.0.28', userMachine = 'cesar', passMachine = '123456')=> {
         var SSH = require('simple-ssh');
 
         var ssh = new SSH({
-            host: '192.168.0.28',
-            user: 'cesar',
-            pass: '123456'
+            host: hostMachine,
+            user: userMachine,
+            pass: passMachine
         });
 
-        ssh.exec(command, {
+        ssh.exec(line, {
             out: function(stdout) {
                 
                 res.statusCode = 200;
