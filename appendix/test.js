@@ -21,9 +21,12 @@ module.exports = app => {
         // app.utils.searchIP.findMaqs(req, res, '200.20.6.7'); // encontrar IP em algum AS
         // app.utils.searchIP.removeAS(req, res, '2715');
 
-        // app.utils.rdap.send(req, res, '/ip/200.20.6.7'); // envia um ip e retorna o seu AS
+        app.utils.rdap.send(req, res, '/ip/200.20.6.7'); // envia um ip e retorna o seu AS
         
-        app.utils.ssh.command(req, res, 'uname -o'); //retorna o echo solicitado
+        // app.utils.ssh.command(req, res, 'uname -o'); //retorna o sistema operacional
+        // app.utils.ssh.command(req, res, 'hostname -I'); // retorna o ip
+        
+        // app.utils.ssh.command(req, res, 'ip route get 8.8.8.8');
 
     });
 
