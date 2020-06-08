@@ -29,6 +29,7 @@ const bloqueioTrafego = (host, user, pass, ip) => {
         out: console.log.bind(console)
     }).start();
      
+    // COMANDO IPTABLES BLOQUEAR IP
     // ssh.exec(`sudo iptables -t filter -A INPUT -s ${ip} -j DROP`, {
     //     pty: true,
     //     out: console.log.bind(console)

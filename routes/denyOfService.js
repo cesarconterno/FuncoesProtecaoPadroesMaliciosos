@@ -14,8 +14,9 @@ module.exports = app => {
         // ssh.comandoRemoto(env.hostRemote, env.userRemote, env.passRemote, 'ls')
         // ssh.bloqueioTrafego(env.hostRemote, env.userRemote, env.passRemote, req.query.ip_atacante)
         // email.enviarEmail(env.emailDestinatario, 'Boa noite')
-        let aux = await rdap.encontrarAS('201.17.89.75')
-      
+        // let aux = await rdap.encontrarAS('201.17.89.75')
+        // let aux = await rdap.encontrarEmail('28573')
+        let aux = await rdap.encontrarAdm('28573')
         // res.end(`<h1> API funcionando ${req.query.ip_atacante}</h1>`);
         res.end(`<h1> API funcionando ${aux}</h1>`);
  
