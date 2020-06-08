@@ -11,8 +11,8 @@ module.exports = app => {
         res.setHeader('Content-Type', 'text/html');
     
 
-        // ssh.comandoRemoto(env.hostRemote, env.userRemote, env.passRemote, 'ls')
-        // ssh.bloqueioTrafego(env.hostRemote, env.userRemote, env.passRemote, req.query.ip_atacante)
+        // ssh.comandoRemoto(env.hostRemoto, env.userRemoto, env.passRemoto, 'ls')
+        // ssh.bloqueioTrafego(env.hostRemoto, env.userRemoto, env.passRemoto, req.query.ip_atacante)
         // email.enviarEmail(env.emailDestinatario, 'Boa noite')
         let aux = await rdap.encontrarAS('201.17.89.75')
       
