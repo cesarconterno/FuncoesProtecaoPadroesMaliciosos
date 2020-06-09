@@ -15,13 +15,13 @@ module.exports = app => {
         let email_adm_as = await rdap.encontrarEmail(as_atacante)
         let nome_adm_as = await rdap.encontrarAdm(as_atacante)
         
-        const texto = notas.textoEmail(nome_adm_as, req.query.ip_atacante)
+        const texto = notas.textoEmail(nome_adm_as, req.query.ip_atacante, as_atacante)
         email.enviarEmail(env.emailDestinatario, texto) // mudar env.emailDestinatario para email_adm_as
         
-        ssh.bloqueioTrafego(env.hostRemoto, env.userRemoto, env.passRemoto, req.query.ip_atacante) 
+        // ssh.bloqueioTrafego(env.hostRemoto, env.userRemoto, env.passRemoto, req.query.ip_atacante) 
         
-        const textoTelegram = notas.textoBot(nome_adm_as, req.query.ip_atacante, email_adm_as)
-        telegram.msgGp(env.token, env.chat_id, textoTelegram)
+        const textoTelegram = notas.textoBot(nome_adm_as, req.query.ip_atacante, email_adm_as, as_atacante, env.hostRemoto)
+        telegram.msgGp(textoTelegram)
 
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/html');
