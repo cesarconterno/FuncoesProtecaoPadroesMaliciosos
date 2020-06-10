@@ -3,6 +3,8 @@ const env = require('../.env')
 
 const enviarEmail = (to, text) => {
 
+    
+
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -15,7 +17,7 @@ const enviarEmail = (to, text) => {
         from: 'auxiliar86.desenvolvimento@gmail.com',
         to: to,
         subject: 'Aviso do módulo de Defesa do EBCyberDef',
-        text: text
+        html: text
       };
 
     transporter.sendMail(mailOptions, function(error, info){

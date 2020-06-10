@@ -22,15 +22,15 @@ module.exports = app => {
         const texto = notas.textoEmail(nome_adm_as, req.query.ip_atacante, as_atacante)
         email.enviarEmail(env.emailDestinatario, texto) // mudar env.emailDestinatario para email_adm_as
 
-        db.find({ ASN: `${as_atacante}` }, async function (err, maq) {
-            if(err)return console.log(err);
+        // db.find({ ASN: `${as_atacante}` }, async function (err, maq) {
+        //     if(err)return console.log(err);
 
-            ssh.comandoRemoto(maq[0].ip, maq[0].user, maq[0].pass, 'echo $PATH')
-            ssh.bloqueioTrafego(maq[0].ip, maq[0].user, maq[0].pass, req.query.ip_atacante) 
+        //     ssh.comandoRemoto(maq[0].ip, maq[0].user, maq[0].pass, 'echo $PATH')
+        //     ssh.bloqueioTrafego(maq[0].ip, maq[0].user, maq[0].pass, req.query.ip_atacante) 
 
-            const textoTelegram = notas.textoBot(nome_adm_as, req.query.ip_atacante, email_adm_as, as_atacante, maq[0].ip)
-            telegram.msgGp(textoTelegram)
-        });
+        //     const textoTelegram = notas.textoBot(nome_adm_as, req.query.ip_atacante, email_adm_as, as_atacante, maq[0].ip)
+        //     telegram.msgGp(textoTelegram)
+        // });
 
         
 
