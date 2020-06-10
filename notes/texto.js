@@ -6,7 +6,7 @@ const textoEmail = (nome_adm_as, ip, as_atacante) => {// Senhor
     responsabilidade de proteção. 
 Solicito ações devidas quanto a esse dano, bloqueando esse tráfego em seu ASN${as_atacante}
     
-Informo que essa solicitação está sendo registrada no Núcleo de Informação e Coordenação do Ponto BR
+Informo que essa solicitação está sendo registrada no ...
     
 Por ordem do Sr Chefe`
     return texto
