@@ -21,14 +21,14 @@ const textoEmail = (nome_adm_as, ip, as_atacante) => {
             body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
         </style>
       </head>
-      <body style="background-color: black; margin: 0 !important; padding: 60px 0 60px 0 !important;">
+      <body style="background-color: white; margin: 0 !important; padding: 60px 0 60px 0 !important;">
         <table border="0" cellspacing="0" cellpadding="0" role="presentation" width="100%">
           <tr>
-              <td bgcolor="black" style="font-size: 0;">&​nbsp;</td>
+              <td bgcolor="white" style="font-size: 0;">&​nbsp;</td>
               <td bgcolor="black" width="600" style="border-radius: 4px; color: grey; font-family: sans-serif; font-size: 18px; line-height: 28px; padding: 40px 40px;">
                 <article>
                   <h1 style="color: white; font-size: 32px; font-weight: bold; line-height: 36px; margin: 0 0 30px 0; text-align: center;">Notificação para ASN${as_atacante}</h1>
-                  <img alt="Instituto Militar de Engenharia" src="http://www.ime.eb.mil.br/images/stories/logo.png" height="300" width="600" style="background-color: black; color: #f8c433; display: block; font-family: sans-serif; font-size: 72px; font-weight: bold; height: auto; max-width: 100%; text-align: center; width: 100%;">
+                  <img alt="Instituto Militar de Engenharia" src="http://www.ime.eb.mil.br/images/stories/logo.png" height="300" width="600" style="background-color: black; color: #f8c433; display: block; font-family: sans-serif; font-size: 72px; font-weight: bold; height: auto; max-width: 10%; text-align: center; width: 100%;">
                 <!-- Photo by Josh Nuttall on Unsplash -->
                   <p style="margin: 30px 0 30px 0;">Nome do administrador do ASN${as_atacante}: ${nome_adm_as}</p>
                   <p style="margin: 30px 0 30px 0; text-align: center;">
@@ -38,7 +38,7 @@ const textoEmail = (nome_adm_as, ip, as_atacante) => {
                   <p style="margin: 0 0 30px 0;">Por ordem do Sr</p>
                 </article>
               </td>
-              <td bgcolor="black" style="font-size: 0;">&​nbsp;</td>
+              <td bgcolor="white" style="font-size: 0;">&​nbsp;</td>
           </tr>
         </table>
       </body>
