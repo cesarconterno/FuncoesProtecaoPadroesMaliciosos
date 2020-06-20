@@ -1,4 +1,4 @@
-const env = require('../.env')
+const env = require('../../.env')
 
 const textoEmail = (nome_adm_as, ip, as_atacante) => {
 
@@ -32,7 +32,7 @@ const textoEmail = (nome_adm_as, ip, as_atacante) => {
                 <!-- Photo by Josh Nuttall on Unsplash -->
                   <p style="margin: 30px 0 30px 0;">Nome do administrador do ASN${as_atacante}: ${nome_adm_as}</p>
                   <p style="margin: 30px 0 30px 0; text-align: center;">
-                    <a href="http://www.ime.eb.mil.br/pt/" target="_blank" style="font-size: 18px; font-family: sans-serif; font-weight: bold; color: black; text-decoration: none; border-radius: 8px; -webkit-border-radius: 8px; background-color: #f8c433; border-top: 20px solid #f8c433; border-bottom: 18px solid #f8c433; border-right: 40px solid #f8c433; border-left: 40px solid #f8c433; display: inline-block;">IME</a>
+                    <a href="http://www.ime.eb.mil.br/pt/" target="_blank" style="font-size: 18px; font-family: sans-serif; font-weight: bold; color: black; text-decoration: none; border-radius: 8px; -webkit-border-radius: 8px; background-color: #f8c433; border-top: 20px solid #f8c433; border-bottom: 18px solid #f8c433; border-right: 40px solid #f8c433; border-left: 40px solid #f8c433; display: inline-block;">SAIBA MAIS</a>
                   </p>
                   <p style="margin: 0 0 30px 0;">máquina de endereço ip ${ip} atacante</p>
                   <p style="margin: 0 0 30px 0;">Por ordem do Sr</p>
