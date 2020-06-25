@@ -16,7 +16,7 @@ const comandoRemoto = (host, user, pass, text) => {
     
 }
 
-const bloqueioTrafego = (host, user, pass, ip) => {
+const bloqueioTrafego = (host, user, pass, ip_atacante, ip_vitima) => {
 
     var ssh = new SSH({
         host: host,
@@ -24,16 +24,11 @@ const bloqueioTrafego = (host, user, pass, ip) => {
         pass: pass
     });
 
-    ssh.exec(`sudo echo ${ip} bloqueado`, {
+    // COMANDO IPTABLES BLOQUEAR IP
+    ssh.exec(`sudo iptables -A FORWARD -s ${ip_atacante} -d ${ip_vitima} -j DROP`, {
         pty: true,
         out: console.log.bind(console)
     }).start();
-     
-    // COMANDO IPTABLES BLOQUEAR IP
-    // ssh.exec(`sudo iptables -t filter -A INPUT -s ${ip} -j DROP`, {
-    //     pty: true,
-    //     out: console.log.bind(console)
-    // }).start();
 
 }
 

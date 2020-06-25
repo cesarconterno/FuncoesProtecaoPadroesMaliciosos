@@ -11,13 +11,14 @@ module.exports = app => {
         res.setHeader('Content-Type', 'text/html');
     
 
-        // ssh.comandoRemoto(env.hostRemoto, env.userRemoto, env.passRemoto, 'ls')
-        // ssh.bloqueioTrafego(env.hostRemoto, env.userRemoto, env.passRemoto, req.query.ip_atacante)
+        
+        ssh.bloqueioTrafego(env.hostRemoto, env.userRemoto, env.passRemoto, req.query.ip_atacante, '187.68.7.6')
+        // ssh.comandoRemoto(env.hostRemoto, env.userRemoto, env.passRemoto, 'sudo iptables -L')
         // email.enviarEmail(env.emailDestinatario, 'Boa noite')
-        let aux = await rdap.encontrarAS('201.17.89.75')
+        // let aux = await rdap.encontrarAS('201.17.89.75')
       
         // res.end(`<h1> API funcionando ${req.query.ip_atacante}</h1>`);
-        res.end(`<h1> API funcionando ${aux}</h1>`);
+        res.end(`<h1> API funcionando</h1>`);
  
     });
     

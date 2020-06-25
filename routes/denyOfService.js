@@ -30,10 +30,10 @@ module.exports = app => {
                     if(err)return console.log(err);
         
                     ssh.comandoRemoto(maq[0].ip, maq[0].user, maq[0].pass, 'echo $PATH')
-                    ssh.bloqueioTrafego(maq[0].ip, maq[0].user, maq[0].pass, req.query.ip_atacante) 
+                    ssh.bloqueioTrafego(maq[0].ip, maq[0].user, maq[0].pass, req.query.ip_atacante, '187.68.7.5') 
         
                     const textoTelegram = notas.textoBot(nome_adm_as, req.query.ip_atacante, email_adm_as, as_atacante, maq[0].ip)
-                    telegram.msgGp(textoTelegram)
+                    telegram.msg(textoTelegram)
                 });
         
                 res.statusCode = 200;
