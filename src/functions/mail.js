@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const env = require('../.env')
+const env = require('../config/.env')
 
 const enviarEmail = (to, text) => {
 

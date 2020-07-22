@@ -1,4 +1,4 @@
-const env = require('../.env')
+const env = require('../config/.env')
 const fetch = require('node-fetch');
 
 

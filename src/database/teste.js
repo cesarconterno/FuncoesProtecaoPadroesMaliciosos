@@ -1,4 +1,4 @@
-// const env = require('../.env')
+// const env = require('../config/.env')
 // var nedb = require('nedb');
 // var db = new nedb({filename: './maq.db', autoload: true});
 // const ssh = require('../functions/ssh')
