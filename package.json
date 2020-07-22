@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
-  "author": "Hcode Treinamentos",
+  "author": "Cesar",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -16,13 +16,9 @@
     "express-validator": "^5.3.1",
     "fs": "0.0.1-security",
     "handlebars": "^4.7.6",
-    "mysql": "^2.18.1",
     "nedb": "^1.8.0",
     "node-fetch": "^2.6.0",
-    "nodejs-traceroute": "^1.2.0",
     "nodemailer": "^6.4.8",
-    "restify-clients": "^2.6.9",
-    "simple-ssh": "^1.0.0",
-    "traceroute": "^1.0.0"
+    "simple-ssh": "^1.0.0"
   }
 }

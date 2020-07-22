@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(expressValidator());
 
-consign().include('routes').include('functions').into(app);
+consign().include('./src/routes').include('./src/functions').into(app);
 
 app.listen(4000, '127.0.0.1', ()=>{
 
