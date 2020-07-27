@@ -1,12 +1,12 @@
-const env = require('../config/.env')
+const env = require('../../config/.env')
 const email = require('../functions/mail')
 const ssh = require('../functions/ssh')
 const rdap = require('../functions/rdap')
 const notas = require('../functions/notes/texto')
 const regex = require('../functions/notes/regex')
 const telegram = require('../functions/telegram')
-
 const nedb = require('nedb');
+const fs = require('fs');
 
 
 
@@ -42,7 +42,19 @@ module.exports = app => {
                 IP do acatante: ${req.query.ip_atacante}
                 ASN${as_atacante}
                 Nome Adm AS: ${nome_adm_as}, email: ${email_adm_as}</h1>`);
-        
+
+                let saida = 
+                `IP do acatante: ${req.query.ip_atacante}
+                ASN${as_atacante}
+                Nome Adm AS: ${nome_adm_as}, email: ${email_adm_as}`
+                
+                fs.writeFile('output.json', saida, (err) => {
+                    // throws an error, you could also catch it here
+                    if (err) throw err;
+                
+                    // success case, the file was saved
+                    console.log('saida enviada!');
+                });
          
 
 

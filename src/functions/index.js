@@ -1,4 +1,4 @@
-const env = require('../config/.env')
+const env = require('../../config/.env')
 const email = require('./mail')
 const ssh = require('./ssh')
 const rdap = require('./rdap')

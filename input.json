@@ -1,0 +1,13 @@
+[
+    {
+        "req": "http://localhost:4000/denyofservice?ip_atacante=177.8.80.232"
+    },
+    {
+        "req": "http://localhost:4000/denyofservice?ip_atacante=192.168.3.3"
+    },
+    {
+        "req": "http://localhost:4000/denyofservice?ip_atacante=201.17.89.75"
+    }
+]
+
+

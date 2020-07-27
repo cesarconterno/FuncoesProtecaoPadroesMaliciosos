@@ -1,4 +1,4 @@
-const env = require('../../config/.env')
+const env = require('../../../config/.env')
 
 const textoEmail = (nome_adm_as, ip, as_atacante) => {
 
