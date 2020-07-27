@@ -1,7 +1,7 @@
 const env = require('../../config/.env')
-const email = require('./mail')
-const ssh = require('./ssh')
-const rdap = require('./rdap')
+const email = require('../functions/mail')
+const ssh = require('../functions/ssh')
+const rdap = require('../functions/rdap')
 
 module.exports = app => {
  

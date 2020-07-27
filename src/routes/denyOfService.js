@@ -22,10 +22,26 @@ module.exports = app => {
                 let as_atacante = await rdap.encontrarAS(req.query.ip_atacante)
                 let email_adm_as = await rdap.encontrarEmail(as_atacante)
                 let nome_adm_as = await rdap.encontrarAdm(as_atacante)
+                
+                let saida = 
+                `
+                IP do atacante: ${req.query.ip_atacante}
+                ASN${as_atacante}
+                Nome Adm AS: ${nome_adm_as}, email: ${email_adm_as}
+                `
             
                 const texto = notas.textoEmail(nome_adm_as, req.query.ip_atacante, as_atacante)
                 email.enviarEmail(env.emailDestinatario, texto) // mudar env.emailDestinatario para email_adm_as
         
+                
+                fs.appendFile('output.txt', saida, (err) => {
+                    // throws an error, you could also catch it here
+                    if (err) throw err;
+                
+                    // success case, the file was saved
+                    console.log('saida enviada!');
+                });
+
                 db.find({ ASN: `${'28573'}` }, async function (err, maq) {
                     if(err)return console.log(err);
         
@@ -35,26 +51,14 @@ module.exports = app => {
                     const textoTelegram = notas.textoBot(nome_adm_as, req.query.ip_atacante, email_adm_as, as_atacante, maq[0].ip)
                     telegram.msg(textoTelegram)
                 });
+
+                
         
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'text/html');
-                res.end(`<h1> API funcionando
-                IP do acatante: ${req.query.ip_atacante}
-                ASN${as_atacante}
-                Nome Adm AS: ${nome_adm_as}, email: ${email_adm_as}</h1>`);
+                res.end(`<h1> API funcionando ${saida}</h1>`);
 
-                let saida = 
-                `IP do acatante: ${req.query.ip_atacante}
-                ASN${as_atacante}
-                Nome Adm AS: ${nome_adm_as}, email: ${email_adm_as}`
                 
-                fs.writeFile('output.json', saida, (err) => {
-                    // throws an error, you could also catch it here
-                    if (err) throw err;
-                
-                    // success case, the file was saved
-                    console.log('saida enviada!');
-                });
          
 
 
