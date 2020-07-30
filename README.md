@@ -5,5 +5,6 @@
 ![dependencias](https://img.shields.io/david/dev/cesarconterno/FuncoesProtecaoPadroesMaliciosos)
 
 Para rodar, é necessário
-> renomear o arquivo sample.env pra .env inserindo os dados para cada constante
-> basta usar o comando `npm start`
+> renomear o arquivo `sample.env` pra `.env` inserindo os dados para cada constante
+>
+> executar o comando `npm start`
