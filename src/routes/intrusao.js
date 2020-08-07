@@ -14,7 +14,9 @@ module.exports = app => {
  
     app.get('/intrusao', async (req, res) => {
 
-       
+        
+
+        res.end(`<h1> API funcionando</h1>`);
        
         
       

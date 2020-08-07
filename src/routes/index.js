@@ -14,7 +14,11 @@ module.exports = app => {
         
         // ssh.bloqueioTrafego(env.hostRemoto, env.userRemoto, env.passRemoto, req.query.ip_atacante, '187.68.7.6')
         // ssh.comandoRemoto(env.hostRemoto, env.userRemoto, env.passRemoto, 'sudo iptables -L') // precisa do sudo
-        var aux = ssh.tracerouteRemoto(env.hostRemoto, env.userRemoto, env.passRemoto, '201.17.89.75') // precisa do sudo
+        var aux
+        ssh.tracerouteRemoto(env.hostRemoto, env.userRemoto, env.passRemoto, '201.17.89.75')
+            .then(resposta => aux = resposta)
+        
+        // precisa do sudo
 
         // email.enviarEmail(env.emailDestinatario, 'Boa noite')
         // let aux = await rdap.encontrarAS('201.17.89.75')

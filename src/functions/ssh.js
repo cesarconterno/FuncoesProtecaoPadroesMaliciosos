@@ -13,7 +13,22 @@ const comandoRemoto = (host, user, pass, text) => {
     }).start();
 }
 
-const bloqueioTrafego = (host, user, pass, ip_atacante, ip_vitima) => {
+const bloqueioTrafego = (host, user, pass, ip_atacante, ip_vitima, port_atacante=3000, port_vitima=3000, protocolo=icmp) => {
+
+    var ssh = new SSH({
+        host: host,
+        user: user,
+        pass: pass
+    });
+    
+    ssh.exec(`sudo iptables -A FORWARD -s ${ip_atacante} --sport ${port_atacante} --dport ${port_vitima} -d ${ip_vitima} -j -p ${protocolo} DROP`, {
+        pty: true,
+        out: console.log.bind(console)
+    }).start();
+
+}
+
+const bloqueioHost = (host, user, pass, ip_origem) => {
 
     var ssh = new SSH({
         host: host,
@@ -22,7 +37,7 @@ const bloqueioTrafego = (host, user, pass, ip_atacante, ip_vitima) => {
     });
 
     // COMANDO IPTABLES BLOQUEAR IP
-    ssh.exec(`sudo iptables -A FORWARD -s ${ip_atacante} -d ${ip_vitima} -j DROP`, {
+    ssh.exec(`sudo iptables -A OUTPUT -s ${ip_origem} -j DROP`, {
         pty: true,
         out: console.log.bind(console)
     }).start();
@@ -36,19 +51,18 @@ const tracerouteRemoto = async (host, user, pass, ip) => {
         user: user,
         pass: pass
     });
-    
-    ssh.exec(`traceroute -n ${ip} | egrep -o '[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}' | sed -n 5p'`, {
+    var response
+    ssh.exec(`traceroute -n ${ip} | egrep -o '[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}' | sed -n 5p`, {
         pty: true,
         out: console.log.bind(console)
     }).start();
-    var response = await ssh.out
-    //  traceroute -n 177.8.80.231 | egrep -o '[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}' | sed -n 5p
     return response
 }
 
 module.exports = {
     comandoRemoto,
     bloqueioTrafego,
-    tracerouteRemoto
+    tracerouteRemoto,
+    bloqueioHost
 }
 

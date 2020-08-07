@@ -7,6 +7,8 @@
 Para rodar, é necessário
 > renomear o arquivo `sample.env` pra `.env` inserindo os dados para cada constante
 >
+> instalar as dependências do projeto, com o comando `npm i`
+>
 > executar o comando `npm start`
 >
 >>dependências do projeto:
