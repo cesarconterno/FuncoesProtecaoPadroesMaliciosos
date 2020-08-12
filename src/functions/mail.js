@@ -1,6 +1,9 @@
 const nodemailer = require('nodemailer');
 const env = require('../../config/.env')
 
+
+
+//servico_email
 const enviarEmail = (to, text) => {
 
     
@@ -29,7 +32,40 @@ const enviarEmail = (to, text) => {
     });
 }
 
+const enviarEmailPadrao = 
+(destinatario) => {
+    return (texto) => {
+        return (assunto) => {
+				const transporter = nodemailer.createTransport({
+					service: `${env.servico_email}`,
+					auth: {
+					user: env.emailRemetente,
+					pass: env.senhaEmailRemetente 
+					}
+				});
+				
+				const mailOptions = {
+					from: `${env.emailRemetente}`,
+					to: destinatario,
+					subject: `${assunto}`,
+					html: texto
+					};
+				
+				transporter.sendMail(mailOptions, function(error, info){
+					if (error) {
+					console.log(error);
+					return false
+					} else {
+					console.log('Email enviado: ' + info.response);
+					return true
+					}
+				}); 
+        }
+    }
+}
+
 module.exports = {
-    enviarEmail
+    enviarEmail,
+    enviarEmailPadrao
 }
 
