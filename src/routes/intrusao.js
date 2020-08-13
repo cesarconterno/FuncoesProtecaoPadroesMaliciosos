@@ -17,15 +17,15 @@ module.exports = app => {
     app.get('/intrusao', async (req, res) => {
 
         const ip_vitima = ip_publico(ip_valido(req.query.ip_vitima))
-        const port_vitima = req.query.port_vitima
         const usuario_vitima = req.query.usuario_vitima
         const email_vitima = emailValido(req.query.email_vitima)
-
-        // enviarEmailPadrao(env.emailDestinatario)(notas.textoEmailIntrusao(ip_vitima)(port_vitima)(usuario_vitima))('Alerta de Segurança')
+        const informacoesEmail = `IP da máquina utilizada: ${ip_vitima}, conta invadida: ${usuario_vitima}`
         
-        enviarEmailPadrao(env.emailDestinatario)(notas.textoEmailAlerta)('Alerta de Segurança')
+        enviarEmailPadrao(env.emailDestinatario)(notas.textoEmailAlertaIntrusao(informacoesEmail))('Alerta de Segurança')
 
-        res.end(`<h1> API funcionando, ${ip_vitima}, ${port_vitima}, ${usuario_vitima}, ${email_vitima}</h1>`);
+
+        
+        res.end(`<h1> API funcionando, ${ip_vitima}, ${usuario_vitima}, ${email_vitima}</h1>`);
        
         
       

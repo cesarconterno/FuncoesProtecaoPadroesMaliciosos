@@ -1,7 +1,7 @@
 const env = require('../../../config/.env')
 
 
-const textoPadroEmail = 
+const textoPadraoEmail = 
 (titulo) => {
 	return (logo) => {
 		return (textolink) => {
@@ -55,8 +55,9 @@ const textoPadroEmail =
 		}
 	}
 }
-const textoEmailEBCyberDef = textoPadroEmail(env.titulo_email) (env.logo_email)(env.texto_link)(env.link_email)
+const textoEmailEBCyberDef = textoPadraoEmail(env.titulo_email) (env.logo_email)(env.texto_link)(env.link_email)
 const textoEmailAlerta = textoEmailEBCyberDef('teste1')('teste2')
+const textoEmailAlertaIntrusao = textoEmailEBCyberDef('O sistema do Exército Brasileiro EBCyberDef recebeu um aviso de que sua conta foi invadida através de um ataque de Intrusão')
 
 
 
@@ -173,6 +174,7 @@ module.exports = {
 	textoEmail,
 	textoEmailIntrusao,
 	textoEmailAlerta,
+	textoEmailAlertaIntrusao,
     textoBot
 }
 

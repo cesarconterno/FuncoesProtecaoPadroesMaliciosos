@@ -1,4 +1,5 @@
-var SSH = require('simple-ssh');
+var SSH = require('simple-ssh')
+const env = require('../../config/.env')
  
 const comandoRemoto = (host, user, pass, text) => {
 
@@ -13,7 +14,7 @@ const comandoRemoto = (host, user, pass, text) => {
     }).start();
 }
 
-const bloqueioTrafego = (host, user, pass, ip_atacante, ip_vitima, port_atacante=3000, port_vitima=3000, protocolo=icmp) => {
+const bloqueioTrafego = (host, user, pass, ip_atacante, ip_vitima) => {
 
     var ssh = new SSH({
         host: host,
@@ -21,12 +22,13 @@ const bloqueioTrafego = (host, user, pass, ip_atacante, ip_vitima, port_atacante
         pass: pass
     });
     
-    ssh.exec(`sudo iptables -A FORWARD -s ${ip_atacante} --sport ${port_atacante} --dport ${port_vitima} -d ${ip_vitima} -j -p ${protocolo} DROP`, {
+    ssh.exec(`sudo iptables -A FORWARD -s ${ip_atacante} -d ${ip_vitima} -j DROP`, {
         pty: true,
         out: console.log.bind(console)
     }).start();
 
 }
+   
 
 const bloqueioHost = (host, user, pass, ip_origem) => {
 
@@ -59,10 +61,58 @@ const tracerouteRemoto = async (host, user, pass, ip) => {
     return response
 }
 
+const bloqueioPadraoTrafego = 
+(host) => {
+    return (user) => {
+        return (pass) => {
+            return (ip_vitima) => {
+                return (ip_atacante) =>{
+                    var ssh = new SSH({
+                        host: host,
+                        user: user,
+                        pass: pass
+                    });
+                    
+                    ssh.exec(`sudo iptables -A FORWARD -s ${ip_atacante} -d ${ip_vitima} -j  DROP`, {
+                        pty: true,
+                        out: console.log.bind(console)
+                    }).start();
+                                            
+                }
+            }
+        }
+    }
+}
+
+const bloqueioTrafegoIpAtacante = 
+(host) => {
+    return (user) => {
+        return (pass) => {
+            return (ip_atacante) =>{
+                var ssh = new SSH({
+                    host: host,
+                    user: user,
+                    pass: pass
+                });
+                
+                ssh.exec(`sudo iptables -A FORWARD -s ${ip_atacante} -j  DROP`, {
+                    pty: true,
+                    out: console.log.bind(console)
+                }).start();                          
+            }
+        }
+    }
+}
+
+const bloqueioTrafegoIpDePara = bloqueioPadraoTrafego(env.hostRemoto)(env.userRemoto)(env.passRemoto)
+const bloqueioDeAtacanteParaTodos = bloqueioTrafegoIpAtacante(env.hostRemoto)(env.userRemoto)(env.passRemoto)
+
 module.exports = {
     comandoRemoto,
     bloqueioTrafego,
     tracerouteRemoto,
-    bloqueioHost
+    bloqueioHost,
+    bloqueioTrafegoIpDePara,
+    bloqueioDeAtacanteParaTodos
 }
 

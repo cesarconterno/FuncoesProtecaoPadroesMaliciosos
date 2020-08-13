@@ -5,9 +5,6 @@ const env = require('../../config/.env')
 
 //servico_email
 const enviarEmail = (to, text) => {
-
-    
-
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
