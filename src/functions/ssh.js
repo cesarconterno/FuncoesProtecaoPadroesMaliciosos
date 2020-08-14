@@ -1,17 +1,29 @@
 var SSH = require('simple-ssh')
 const env = require('../../config/.env')
  
-const comandoRemoto = (host, user, pass, text) => {
-
-    var ssh = new SSH({
-        host: host,
-        user: user,
-        pass: pass
-    });
-    ssh.exec(text, {
-        pty: true,
-        out: console.log.bind(console)
-    }).start();
+const comandoRemoto = 
+(comando) => {
+    return (user) => {
+        return (pass) => {
+            return (host) => {
+                return (array) => {
+                    return array.map(ip => {
+                        var ssh = new SSH({
+                            host: host,
+                            user: user,
+                            pass: pass
+                        });
+                        
+                        ssh.exec(`${comando}`, {
+                            pty: true,
+                            out: console.log.bind(console)
+                        }).start();
+                        return ip
+                    })   
+                }                         
+            }
+        }
+    }
 }
 
 const bloqueioTrafego = (host, user, pass, ip_atacante, ip_vitima) => {

@@ -62,10 +62,29 @@ const ipValidoArray = (array) => {
 
 function executarBloqueioArray(ip_atacante) {
     return function (array) {
-        return array.map(ip => ssh.bloqueioDeAtacanteParaTodos(ip_atacante))
+        return array.map(ip => {
+            ssh.bloqueioDeAtacanteParaTodos(ip_atacante)
+            return ip
+        })
     }
 }
 
+const saida = {
+    relatorio: {
+        ataque: "",
+        situacao: "",
+        maquinas: [
+        ],
+        notificacao_email: {
+            asn: "",
+            adm: "",
+            email: ""
+        },
+        notificacao_telegram: {
+            bot: ""
+        }
+    }
+}
 
 module.exports = {
     lerDiretorio,
@@ -76,5 +95,6 @@ module.exports = {
     separarTextoPor,
     removerElementosSeVazio,
     ipValidoArray,
-    executarBloqueioArray
+    executarBloqueioArray,
+    saida
 }

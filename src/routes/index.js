@@ -15,7 +15,9 @@ module.exports = app => {
         res.setHeader('Content-Type', 'text/html');
         const ip_vitima = '31.31.31.31'
         const ip_atacante = '12.23.34.45'
-        const asn = '28573'
+        const asn = '28576'
+
+
 
         f.lerDiretorio(caminho)
             .then(f.elementosTerminadosCom('.txt'))
@@ -25,7 +27,7 @@ module.exports = app => {
             .then(f.separarTextoPor('\n'))
             .then(f.removerElementosSeVazio)
             .then(f.ipValidoArray)
-            .then(f.executarBloqueioArray(ip_atacante))
+            // .then(f.executarBloqueioArray(ip_atacante))
             .then(console.log)
         
         // ssh.bloqueioTrafego(env.hostRemoto, env.userRemoto, env.passRemoto, req.query.ip_atacante, '187.68.7.6')

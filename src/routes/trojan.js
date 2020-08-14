@@ -7,17 +7,40 @@ const regex = require('../functions/notes/regex')
 const telegram = require('../functions/telegram')
 const nedb = require('nedb');
 const fs = require('fs');
+const {ip_valido, ip_publico, emailValido} = require('../functions/verificacao')
+const {enviarEmailPadrao} = require('../functions/mail')
+const f = require('../functions/basico')
+const path = require('path')
+const { rejects } = require('assert')
+const caminho = path.join(__dirname, '..', '..', 'database')
 
 
 
 module.exports = app => {
  
-    app.get('/trojan', async (req, res) => {
+    app.get('/worm', async (req, res) => {
 
-       
-      
-        
-      
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/json');
+
+        const saida =f.saida
+        saida.relatorio.ataque = "trojan"
+
+        const ip_vitima = ip_publico(ip_valido(req.query.ip_vitima))
+        const usuario_vitima = req.query.usuario_vitima
+        const email_vitima = emailValido(req.query.email_vitima)
+        const informacoesEmail = `IP da máquina infectada: ${ip_vitima}, usuario: ${usuario_vitima}`
+        try{
+            enviarEmailPadrao(env.emailDestinatario)(notas.textoEmailAlertaTrojan(informacoesEmail))('Alerta de Segurança')
+            saida.relatorio.situacao = "sucesso"
+            saida.relatorio.maquinas.push(ip_vitima)
+            saida.relatorio.notificacao_email.adm = usuario_vitima
+            saida.relatorio.notificacao_email.email = email_vitima
+        }catch(e){
+            saida.relatorio.situacao = "falha"
+            res.end(`${JSON.stringify(saida)}`)
+            console.error(e)
+        }
+        res.end(`${JSON.stringify(saida)}`)  
     });
-    
 }

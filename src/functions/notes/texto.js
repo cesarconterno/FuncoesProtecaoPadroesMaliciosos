@@ -56,14 +56,16 @@ const textoPadraoEmail =
 	}
 }
 const textoEmailEBCyberDef = textoPadraoEmail(env.titulo_email) (env.logo_email)(env.texto_link)(env.link_email)
-const textoEmailAlerta = textoEmailEBCyberDef('teste1')('teste2')
+
 const textoEmailAlertaIntrusao = textoEmailEBCyberDef('O sistema do Exército Brasileiro EBCyberDef recebeu um aviso de que sua conta foi invadida através de um ataque de Intrusão')
+const textoEmailAlertaTrojan = textoEmailEBCyberDef('O sistema do Exército Brasileiro EBCyberDef recebeu um aviso de que sua máquina foi infectada através de um malware Trojan')
+const textoEmailAlertaWorm = textoEmailEBCyberDef('O sistema do Exército Brasileiro EBCyberDef recebeu um aviso de que sua máquina foi infectada através de um malware Worm')
 
 
 
 
 
-
+const textoTeste = textoEmailEBCyberDef('teste1')('teste2')
 
 
 const textoEmail = (nome_adm_as, ip, as_atacante) => {
@@ -173,8 +175,10 @@ Foi enviado email para o Sr ${nome_adm_as} (${email_adm_as}), responsável pelos
 module.exports = {
 	textoEmail,
 	textoEmailIntrusao,
-	textoEmailAlerta,
+	textoTeste,
 	textoEmailAlertaIntrusao,
+	textoEmailAlertaTrojan,
+	textoEmailAlertaWorm,
     textoBot
 }
 
