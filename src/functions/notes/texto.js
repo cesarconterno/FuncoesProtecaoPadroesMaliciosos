@@ -58,9 +58,34 @@ const textoPadraoEmail =
 const textoEmailEBCyberDef = textoPadraoEmail(env.titulo_email) (env.logo_email)(env.texto_link)(env.link_email)
 
 const textoEmailAlertaIntrusao = textoEmailEBCyberDef('O sistema do Exército Brasileiro EBCyberDef recebeu um aviso de que sua conta foi invadida através de um ataque de Intrusão')
-const textoEmailAlertaTrojan = textoEmailEBCyberDef('O sistema do Exército Brasileiro EBCyberDef recebeu um aviso de que sua máquina foi infectada através de um malware Trojan')
-const textoEmailAlertaWorm = textoEmailEBCyberDef('O sistema do Exército Brasileiro EBCyberDef recebeu um aviso de que sua máquina foi infectada através de um malware Worm')
+const textoEmailAlertaWorm = textoPadraoEmail(env.titulo_email)(env.logo_email_worm)(env.texto_link)(env.link_email)('O sistema do Exército Brasileiro EBCyberDef recebeu um aviso de que sua máquina foi infectada através de um malware Worm')
+const textoEmailAlertaTrojan = textoPadraoEmail(env.titulo_email)(env.logo_email_trojan)(env.texto_link)(env.link_email)('O sistema do Exército Brasileiro EBCyberDef recebeu um aviso de que sua máquina foi infectada através de um malware Trojan')
 
+
+const textoTelegram = 
+(ataque) => {
+	return (email) => {
+		return (situacao) => {
+			return (maquinas) => {
+				const texto = `Relatorio sobre a o ataque: ${ataque}
+Situação: ${situacao}
+Email automático enviado para ${email}
+Maquinas envolvidas no bloqueio do ataque: ${maquinas}`
+				return texto
+			}
+		}
+	}
+}
+
+
+
+
+const textoBot = (nome_adm_as, ip_atacante, email_adm_as, as_atacante, ip_bloqueado = '200.160.0.1') => {
+    const texto = `Dados sobre a solicitação /GET ip do atacante ${ip_atacante}:
+Foi realizado bloqueio do tráfego deste ip na(s) seguinte(s) máquina(s): ${ip_bloqueado}
+Foi enviado email para o Sr ${nome_adm_as} (${email_adm_as}), responsável pelos pontos de acesso do ASN${as_atacante}, onde se encontra o atacante.`
+    return texto
+}
 
 
 
@@ -165,13 +190,6 @@ const textoEmailIntrusao =
 }
 
 
-const textoBot = (nome_adm_as, ip_atacante, email_adm_as, as_atacante, ip_bloqueado = '200.160.0.1') => {
-    const texto = `Dados sobre a solicitação /GET ip do atacante ${ip_atacante}:
-Foi realizado bloqueio do tráfego deste ip na(s) seguinte(s) máquina(s): ${ip_bloqueado}
-Foi enviado email para o Sr ${nome_adm_as} (${email_adm_as}), responsável pelos pontos de acesso do ASN${as_atacante}, onde se encontra o atacante.`
-    return texto
-}
-
 module.exports = {
 	textoEmail,
 	textoEmailIntrusao,
@@ -179,6 +197,7 @@ module.exports = {
 	textoEmailAlertaIntrusao,
 	textoEmailAlertaTrojan,
 	textoEmailAlertaWorm,
-    textoBot
+	textoBot,
+	textoTelegram
 }
 

@@ -41,6 +41,7 @@ module.exports = app => {
             res.end(`${JSON.stringify(saida)}`)
             console.error(e)
         }
+        console.log(saida)
         res.end(`${JSON.stringify(saida)}`)  
     });
 }

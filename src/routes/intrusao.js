@@ -27,10 +27,10 @@ module.exports = app => {
         const email_vitima = emailValido(req.query.email_vitima)
         const informacoesEmail = `IP da máquina invadida: ${ip_vitima}, conta invadida: ${usuario_vitima}`
         const linha_iptables = `sudo iptables -A FORWARD -s ${ip_vitima} -j  DROP`
-
+        const inserirIP = f.inserirIpRelatorio(saida)
 
         try{
-            enviarEmailPadrao(env.emailDestinatario)(notas.textoEmailAlertaIntrusao(informacoesEmail))('Alerta de Segurança')
+            // enviarEmailPadrao(env.emailDestinatario)(notas.textoEmailAlertaIntrusao(informacoesEmail))('Alerta de Segurança')
             const as_vitima = await rdap.encontrarAS(req.query.ip_vitima)
             const comando = ssh.comandoRemoto(linha_iptables)(env.userRemoto)(env.passRemoto)(env.hostRemoto)
             
@@ -40,26 +40,25 @@ module.exports = app => {
                 .then(f.lerArquivos)
                 .then(f.mesclarElementos)
                 .then(f.separarTextoPor('\n'))
-                .then(f.removerElementosSeVazio)
+                .then(f.mesclarElementos)
+                .then(f.separarTextoPor(' '))
                 .then(f.ipValidoArray)
                 .then(comando)
-                .then(array => {
-                    return array.map(ip => {
-                        // saida.relatorio.maquinas.push(ip)
-                        console.log(ip)
-                        return ip
-                    })
-                })
+                // .then(inserirIP)
                 .then(console.log)
 
             saida.relatorio.situacao = "sucesso"
-            // saida.relatorio.maquinas.push(ip_vitima)
             saida.relatorio.notificacao_email.adm = usuario_vitima
             saida.relatorio.notificacao_email.email = email_vitima
             saida.relatorio.notificacao_email.asn = as_vitima
+            const informacoesTelegram = notas.textoTelegram('intrusao')(email_vitima)('sucesso')(ip_vitima)
+            telegram.msgGp(informacoesTelegram)
+            saida.relatorio.notificacao_telegram.bot = env.nome_bot
             // console.log(eee)
         }catch(e){
             saida.relatorio.situacao = "falha"
+            const informacoesTelegram = notas.textoTelegram('intrusao')('email não enviado')('falha')(ip_vitima)
+            telegram.msgGp(informacoesTelegram)
             res.end(`${JSON.stringify(saida)}`)
             console.error(e)
         }

@@ -1,8 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const ssh = require('../functions/ssh')
+const { match } = require('assert')
 
-function lerDiretorio(caminho) {
+const lerDiretorio = (caminho) => {
     return new Promise((resolve, reject) => {
         try {
             const arquivos = fs.readdirSync(caminho).map(arquivo => {
@@ -15,19 +16,19 @@ function lerDiretorio(caminho) {
     })
 }
 
-function elementosTerminadosCom(padraoTextual) {
+const elementosTerminadosCom = (padraoTextual) => {
     return function (array) {
         return array.filter(el => el.endsWith(padraoTextual))
     }
 }
 
-function adicionarElementosSeIncluir(padraoTextual) {
+const adicionarElementosSeIncluir = (padraoTextual) => {
     return function (array) {
         return array.filter(el => el.includes(padraoTextual))
     }
 }
 
-function lerArquivo(caminho) {
+const lerArquivo = (caminho) => {
     return new Promise((resolve, reject) => {
         try {
             const conteudo = fs.readFileSync(caminho, { encoding: 'utf-8' })
@@ -38,32 +39,34 @@ function lerArquivo(caminho) {
     })
 }
 
-function lerArquivos(caminhos) {
+const lerArquivos = (caminhos) => {
     return Promise.all(caminhos.map(caminho => lerArquivo(caminho)))
 }
 
-function mesclarElementos(array) {
-    return array.join('\n')
+const mesclarElementos = (array) => {
+    return array.join(' ')
 }
 
-function separarTextoPor(simbolo) {
+const separarTextoPor = (simbolo) => {
     return function (texto) {
         return texto.split(simbolo)
     }
 }
 
-function removerElementosSeVazio(array) {
+const removerElementosSeVazio = (array) => {
     return array.filter(el => el.trim())
 }
 
 const ipValidoArray = (array) => {
-    return array.filter(ip => /\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\b/.test(ip))
+    return array.filter(ip => ip.match(/\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\b/))
 }
 
-function executarBloqueioArray(ip_atacante) {
+const inserirIpRelatorio = (obj) => {
     return function (array) {
         return array.map(ip => {
-            ssh.bloqueioDeAtacanteParaTodos(ip_atacante)
+            obj.relatorio.maquinas.push(ip)
+            obj["relatorio"]["maquinas"].push(ip)
+            console.log(ip)
             return ip
         })
     }
@@ -95,6 +98,6 @@ module.exports = {
     separarTextoPor,
     removerElementosSeVazio,
     ipValidoArray,
-    executarBloqueioArray,
+    inserirIpRelatorio,
     saida
 }

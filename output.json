@@ -1,0 +1,16 @@
+{
+    "relatorio": {
+        "ataque": "",
+        "situacao": "",
+        "maquinas": [
+        ],
+        "notificacao_email": {
+            "asn": "",
+            "adm": "",
+            "email": ""
+        },
+        "notificacao_telegram": {
+            "bot": ""
+        }
+    }
+}

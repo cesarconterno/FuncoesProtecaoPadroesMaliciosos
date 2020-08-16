@@ -14,6 +14,8 @@ module.exports = app => {
  
     app.get('/denyofservice', async (req, res) => {
 
+      
+
         if(regex.ip_valido(req.query.ip_atacante)){
             console.log('ip valido')
             if(regex.ip_publico(req.query.ip_atacante)){
@@ -30,29 +32,22 @@ module.exports = app => {
                 email.enviarEmail(env.emailDestinatario, texto) // mudar env.emailDestinatario para email_adm_as
         
                 
-                fs.appendFile('output.txt', saida, (err) => {
-                    // throws an error, you could also catch it here
-                    if (err) throw err;
-                
-                    // success case, the file was saved
-                    console.log('saida enviada!');
-                });
 
                 db.find({ ASN: `${'28573'}` }, async function (err, maq) {
                     if(err)return console.log(err);
         
                     ssh.comandoRemoto(maq[0].ip, maq[0].user, maq[0].pass, 'echo $PATH')
-                    ssh.bloqueioTrafego(maq[0].ip, maq[0].user, maq[0].pass, req.query.ip_atacante, '187.68.7.5') 
+                    ssh.bloqueioTrafego(maq[0].ip, maq[0].user, maq[0].pass, req.query.ip_atacante, req.query.ip_vitima) 
         
                     const textoTelegram = notas.textoBot(nome_adm_as, req.query.ip_atacante, email_adm_as, as_atacante, maq[0].ip)
-                    telegram.msg(textoTelegram)
+                    telegram.msgGp(textoTelegram)
                 });
 
                 
         
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'text/html');
-                res.end(`<h1> API funcionando ${saida}</h1>`);
+                res.setHeader('Content-Type', 'text/json');
+                res.end(`<h1>${saida}</h1>`);
 
                 
          

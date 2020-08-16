@@ -1,13 +1,32 @@
-[
-    {
-        "req": "http://localhost:4000/denyofservice?ip_atacante=177.8.80.232"
-    },
-    {
-        "req": "http://localhost:4000/denyofservice?ip_atacante=192.168.3.3"
-    },
-    {
-        "req": "http://localhost:4000/denyofservice?ip_atacante=201.17.89.75"
-    }
-]
+{
+        "denyofservice": [
+            {
+                "req": "http://localhost:4000/denyofservice?ip_atacante=177.8.80.232&ip_vitima=177.103.87.156"
+            },
+            {
+                "req": "http://localhost:4000/denyofservice?ip_atacante=192.168.3.3&ip_vitima=201.17.91.74"
+            },
+            {
+                "req": "http://localhost:4000/denyofservice?ip_atacante=201.17.89.75&ip_vitima=179.236.99.217"
+            }
+        ],
+        "intrusao": [
+            {
+                "req": "http://localhost:4000/intrusao?ip_vitima=187.73.128.5&usuario_vitima=adm_sistema&email_vitima=carvalho@gmail.com"
+            }
+        ],
+        "trojan": [
+            {
+                "req": "http://localhost:4000/trojan?ip_vitima=179.236.99.217&usuario_vitima=Carlos&email_vitima=carlos@carlos.com"
+            }
+        ],
+        "worm": [
+            {
+                "req": "http://localhost:4000/worm?ip_vitima=177.102.3.15&usuario_vitima=Carlos&email_vitima=carlos@carlos.com"
+            }
+        ]
+    
+}
+
 
 

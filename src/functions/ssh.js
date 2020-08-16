@@ -34,7 +34,7 @@ const bloqueioTrafego = (host, user, pass, ip_atacante, ip_vitima) => {
         pass: pass
     });
     
-    ssh.exec(`sudo iptables -A FORWARD -s ${ip_atacante} -d ${ip_vitima} -j DROP`, {
+    ssh.exec(`sudo iptables -A FORWARD -s ${ip_atacante} -d ${ip_vitima} -p ICMP -j DROP`, {
         pty: true,
         out: console.log.bind(console)
     }).start();
