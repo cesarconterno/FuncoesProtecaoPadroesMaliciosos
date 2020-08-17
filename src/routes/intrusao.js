@@ -21,6 +21,7 @@ module.exports = app => {
 
         const saida = f.saida
         saida.relatorio.ataque = "intrusao"
+        saida.relatorio.maquinas = []
 
         const ip_vitima = ip_publico(ip_valido(req.query.ip_vitima))
         const usuario_vitima = req.query.usuario_vitima
@@ -30,28 +31,28 @@ module.exports = app => {
         const inserirIP = f.inserirIpRelatorio(saida)
 
         try{
-            // enviarEmailPadrao(env.emailDestinatario)(notas.textoEmailAlertaIntrusao(informacoesEmail))('Alerta de Segurança')
+            enviarEmailPadrao(env.emailDestinatario)(notas.textoEmailAlertaIntrusao(informacoesEmail))('Alerta de Segurança')
             const as_vitima = await rdap.encontrarAS(req.query.ip_vitima)
             const comando = ssh.comandoRemoto(linha_iptables)(env.userRemoto)(env.passRemoto)(env.hostRemoto)
             
-            f.lerDiretorio(caminho)
-                .then(f.elementosTerminadosCom('.txt'))
-                .then(f.adicionarElementosSeIncluir(as_vitima))
-                .then(f.lerArquivos)
-                .then(f.mesclarElementos)
-                .then(f.separarTextoPor('\n'))
-                .then(f.mesclarElementos)
-                .then(f.separarTextoPor(' '))
-                .then(f.ipValidoArray)
-                .then(comando)
-                // .then(inserirIP)
-                .then(console.log)
+            const ips = await f.lerDiretorio(caminho)
+                .then(f.elementosTerminadosCom('.txt')) //recebe array de nome de arq e filtra só os que tem .txt
+                .then(f.adicionarElementosSeIncluir(as_vitima)) //recebe array .txt e retorna só os que tem o padrao ASN
+                .then(f.lerArquivos) // recebe array de arq e retorna array de conteudo dos arquivos
+                .then(f.mesclarElementos) //recebe array de conteudo dos arq e retorna uma string de tudo
+                .then(f.separarTextoPor('\n')) //recebe uma string de tudo e retorna array se texto
+                .then(f.mesclarElementos) // recebe array de texto e retorna uma string de tudo
+                .then(f.separarTextoPor(' ')) //recebe uma string de tudo e retorna array de palavras
+                .then(f.ipValidoArray) // recebe array de palavras e filtra só os IPs
+                .then(comando) // recebe array de IPs, realiza ssh remoto com cada e retorn array de IPs
 
-            saida.relatorio.situacao = "sucesso"
+            console.log(ips)
+            saida.relatorio.maquinas.push(ips)
+            saida.relatorio.situacao = "neutralizado"
             saida.relatorio.notificacao_email.adm = usuario_vitima
             saida.relatorio.notificacao_email.email = email_vitima
             saida.relatorio.notificacao_email.asn = as_vitima
-            const informacoesTelegram = notas.textoTelegram('intrusao')(email_vitima)('sucesso')(ip_vitima)
+            const informacoesTelegram = notas.textoTelegram('intrusao')(email_vitima)('neutralizado')(ip_vitima)
             telegram.msgGp(informacoesTelegram)
             saida.relatorio.notificacao_telegram.bot = env.nome_bot
             // console.log(eee)

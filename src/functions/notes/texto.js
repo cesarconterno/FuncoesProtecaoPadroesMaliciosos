@@ -59,7 +59,7 @@ const textoEmailEBCyberDef = textoPadraoEmail(env.titulo_email) (env.logo_email)
 
 const textoEmailAlertaIntrusao = textoEmailEBCyberDef('O sistema do Exército Brasileiro EBCyberDef recebeu um aviso de que sua conta foi invadida através de um ataque de Intrusão')
 const textoEmailAlertaWorm = textoPadraoEmail(env.titulo_email)(env.logo_email_worm)(env.texto_link)(env.link_email)('O sistema do Exército Brasileiro EBCyberDef recebeu um aviso de que sua máquina foi infectada através de um malware Worm')
-const textoEmailAlertaTrojan = textoPadraoEmail(env.titulo_email)(env.logo_email_trojan)(env.texto_link)(env.link_email)('O sistema do Exército Brasileiro EBCyberDef recebeu um aviso de que sua máquina foi infectada através de um malware Trojan')
+const textoEmailAlertaTrojan = textoPadraoEmail(env.titulo_email)(env.logo_email_trojan)(env.texto_link)(env.link_email)(env.msg_trojan)
 
 
 const textoTelegram = 

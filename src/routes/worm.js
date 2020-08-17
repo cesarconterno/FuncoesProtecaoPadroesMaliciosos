@@ -25,6 +25,7 @@ module.exports = app => {
 
         const saida =f.saida
         saida.relatorio.ataque = "worm"
+        saida.relatorio.maquinas = []
 
         const ip_vitima = ip_publico(ip_valido(req.query.ip_vitima))
         const usuario_vitima = req.query.usuario_vitima
@@ -32,12 +33,17 @@ module.exports = app => {
         const informacoesEmail = `IP da máquina infectada: ${ip_vitima}, usuario: ${usuario_vitima}`
         try{
             enviarEmailPadrao(env.emailDestinatario)(notas.textoEmailAlertaWorm(informacoesEmail))('Alerta de Segurança')
-            saida.relatorio.situacao = "sucesso"
+            saida.relatorio.situacao = "neutralizado"
             saida.relatorio.maquinas.push(ip_vitima)
             saida.relatorio.notificacao_email.adm = usuario_vitima
             saida.relatorio.notificacao_email.email = email_vitima
+            const informacoesTelegram = notas.textoTelegram('worm')(email_vitima)('neutralizado')(ip_vitima)
+            telegram.msgGp(informacoesTelegram)
+            saida.relatorio.notificacao_telegram.bot = env.nome_bot
         }catch(e){
             saida.relatorio.situacao = "falha"
+            const informacoesTelegram = notas.textoTelegram('worm')('email não enviado')('falha')(ip_vitima)
+            telegram.msgGp(informacoesTelegram)
             res.end(`${JSON.stringify(saida)}`)
             console.error(e)
         }
