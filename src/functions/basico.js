@@ -89,6 +89,20 @@ const saida = {
     }
 }
 
+
+const saida_editavel = {
+    relatorio: {
+        ataque: "",
+        situacao: "",
+        maquinas: [
+        ],
+        notificacao: {
+            email: "",
+            telegram: ""
+        }
+    }
+}
+
 module.exports = {
     lerDiretorio,
     elementosTerminadosCom,
@@ -99,5 +113,6 @@ module.exports = {
     removerElementosSeVazio,
     ipValidoArray,
     inserirIpRelatorio,
-    saida
+    saida,
+    saida_editavel
 }

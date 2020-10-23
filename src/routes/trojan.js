@@ -32,12 +32,16 @@ module.exports = app => {
         const email_vitima = emailValido(req.query.email_vitima)
         const informacoesEmail = `IP da máquina infectada: ${ip_vitima}, usuario: ${usuario_vitima}`
         try{
-            enviarEmailPadrao(env.emailDestinatario)(notas.textoEmailAlertaTrojan(informacoesEmail))('Alerta de Segurança')
-            saida.relatorio.situacao = "neutralizado"
+            if(email_vitima !== null){
+                enviarEmailPadrao(env.emailDestinatario)(notas.textoEmailAlertaTrojan(informacoesEmail))('Alerta de Segurança')
+                saida.relatorio.situacao = "neutralizado"
+            }else{
+                saida.relatorio.situacao = "falha"
+            }     
             saida.relatorio.maquinas.push(ip_vitima)
             saida.relatorio.notificacao_email.adm = usuario_vitima
             saida.relatorio.notificacao_email.email = email_vitima
-            const informacoesTelegram = notas.textoTelegram('trojan')(email_vitima)('neutralizado')(ip_vitima)
+            const informacoesTelegram = notas.textoTelegram('trojan')(email_vitima)(saida.relatorio.situacao)(ip_vitima)
             telegram.msgGp(informacoesTelegram)
             saida.relatorio.notificacao_telegram.bot = env.nome_bot
         }catch(e){

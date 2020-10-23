@@ -47,7 +47,7 @@ module.exports = app => {
         
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'text/json');
-                res.end(`<h1>${saida}</h1>`);
+                res.end(`${JSON.stringify(saida)}`) 
 
                 
          
