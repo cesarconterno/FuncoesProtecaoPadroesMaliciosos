@@ -26,7 +26,7 @@ module.exports = app => {
                 let nome_adm_as = await rdap.encontrarAdm(as_atacante)
                 
                 let saida = 
-                `IP do atacante: ${req.query.ip_atacante}\nASN${as_atacante}\nNome Adm AS: ${nome_adm_as}, email: ${email_adm_as}\n`
+                `IP do atacante: ${req.query.ip_atacante}, ASN${as_atacante}, Nome Adm AS: ${nome_adm_as}, email: ${email_adm_as} `
             
                 const texto = notas.textoEmail(nome_adm_as, req.query.ip_atacante, as_atacante)
                 email.enviarEmail(env.emailDestinatario, texto) // mudar env.emailDestinatario para email_adm_as

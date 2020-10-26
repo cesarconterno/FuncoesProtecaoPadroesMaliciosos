@@ -31,7 +31,12 @@ module.exports = app => {
         const inserirIP = f.inserirIpRelatorio(saida)
 
         try{
-            enviarEmailPadrao(env.emailDestinatario)(notas.textoEmailAlertaIntrusao(informacoesEmail))('Alerta de Segurança')
+            if(email_vitima  !== null){
+                enviarEmailPadrao(env.emailDestinatario)(notas.textoEmailAlertaIntrusao(informacoesEmail))('Alerta de Segurança')
+                saida.relatorio.notificacao_email.email = email_vitima
+            }else{
+                saida.relatorio.notificacao_email.email = 'ninguém'
+            }
             const as_vitima = await rdap.encontrarAS(req.query.ip_vitima)
             const comando = ssh.comandoRemoto(linha_iptables)(env.userRemoto)(env.passRemoto)(env.hostRemoto)
             
@@ -48,11 +53,18 @@ module.exports = app => {
 
             console.log(ips)
             saida.relatorio.maquinas.push(ips)
-            saida.relatorio.situacao = "neutralizado"
+
+
+            let msgEmail
+            if(ips.length > 0){
+                saida.relatorio.situacao = "neutralizado"
+            }else{
+                saida.relatorio.situacao = "falha"
+            }
             saida.relatorio.notificacao_email.adm = usuario_vitima
-            saida.relatorio.notificacao_email.email = email_vitima
+            
             saida.relatorio.notificacao_email.asn = as_vitima
-            const informacoesTelegram = notas.textoTelegram('intrusao')(email_vitima)('neutralizado')(`${JSON.stringify(ips, null)}`)
+            const informacoesTelegram = notas.textoTelegram('intrusao')(email_vitima)(saida.relatorio.situacao)(`${JSON.stringify(ips, null)}`)
             telegram.msgGp(informacoesTelegram)
             saida.relatorio.notificacao_telegram.bot = env.nome_bot
             // console.log(eee)
