@@ -17,7 +17,7 @@
     "fs": "0.0.1-security",
     "handlebars": "^4.7.6",
     "nedb": "^1.8.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "nodemailer": "^6.4.8",
     "simple-ssh": "^1.0.0"
   },
